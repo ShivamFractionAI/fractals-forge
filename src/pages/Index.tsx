@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { useNavigate } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
 import { VaultCard } from "@/components/VaultCard";
@@ -7,6 +8,7 @@ import { WithdrawDialog } from "@/components/WithdrawDialog";
 import { agents } from "@/data/agentsData";
 
 const Index = () => {
+  const navigate = useNavigate();
   const [depositOpen, setDepositOpen] = useState(false);
   const [withdrawOpen, setWithdrawOpen] = useState(false);
 
@@ -45,7 +47,12 @@ const Index = () => {
             <div>
               <p className="text-xs text-muted-foreground uppercase tracking-wide mb-2">LEADERBOARD POSITION</p>
               <p className="text-3xl font-bold">789</p>
-              <button className="text-sm text-chart-green hover:underline mt-1">View leaderboard</button>
+              <button 
+                onClick={() => navigate("/leaderboard")}
+                className="text-sm text-chart-green hover:underline mt-1"
+              >
+                View leaderboard
+              </button>
             </div>
             <div>
               <p className="text-xs text-muted-foreground uppercase tracking-wide mb-2">AVAILABLE TO DEPOSIT</p>
