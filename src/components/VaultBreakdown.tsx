@@ -1,5 +1,6 @@
 import { Protocol } from "@/types/vault";
 import { ChevronRight } from "lucide-react";
+import { PieChart, Pie, Cell, ResponsiveContainer, Tooltip } from "recharts";
 
 interface VaultBreakdownProps {
   protocols: Protocol[];
@@ -7,16 +8,55 @@ interface VaultBreakdownProps {
 }
 
 export const VaultBreakdown = ({ protocols, totalApy }: VaultBreakdownProps) => {
+  const chartData = protocols.map((protocol) => ({
+    name: protocol.name,
+    value: protocol.allocation,
+    apy: protocol.apy,
+    color: protocol.color,
+  }));
+
+  const CustomTooltip = ({ active, payload }: any) => {
+    if (active && payload && payload.length) {
+      return (
+        <div className="bg-card border border-border rounded-lg p-3 shadow-lg">
+          <p className="font-semibold">{payload[0].payload.name}</p>
+          <p className="text-sm text-chart-green">{payload[0].payload.apy}%</p>
+        </div>
+      );
+    }
+    return null;
+  };
+
   return (
     <div className="space-y-6">
       <h2 className="text-2xl font-bold uppercase">Vault Breakdown</h2>
       
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
-        {/* Pie Chart Placeholder */}
-        <div className="bg-card border border-border rounded-lg p-6 flex items-center justify-center">
-          <div className="text-center">
-            <p className="text-4xl font-bold mb-2">{totalApy}% APY</p>
-            <p className="text-muted-foreground">7D APY</p>
+        {/* Pie Chart */}
+        <div className="bg-card border border-border rounded-lg p-6 flex items-center justify-center relative">
+          <ResponsiveContainer width="100%" height={300}>
+            <PieChart>
+              <Pie
+                data={chartData}
+                cx="50%"
+                cy="50%"
+                innerRadius={80}
+                outerRadius={120}
+                paddingAngle={2}
+                dataKey="value"
+              >
+                {chartData.map((entry, index) => (
+                  <Cell key={`cell-${index}`} fill={entry.color} />
+                ))}
+              </Pie>
+              <Tooltip content={<CustomTooltip />} />
+            </PieChart>
+          </ResponsiveContainer>
+          <div className="absolute inset-0 flex items-center justify-center pointer-events-none">
+            <div className="text-center">
+              <p className="text-xs text-muted-foreground mb-1">7D APY</p>
+              <p className="text-3xl font-bold">{totalApy}%</p>
+            </div>
           </div>
         </div>
 

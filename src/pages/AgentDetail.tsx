@@ -116,27 +116,23 @@ const AgentDetail = () => {
         </div>
 
         {/* Info Cards */}
-        <div className="grid grid-cols-2 lg:grid-cols-4 gap-6 mb-8">
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8">
           <Card className="bg-card border-border p-6">
-            <p className="text-xs text-muted-foreground uppercase tracking-wide mb-1">FEE</p>
-            <p className="text-2xl font-bold">0%</p>
+            <p className="text-xs text-chart-green uppercase tracking-wide mb-2">FEE</p>
+            <p className="text-3xl font-bold">0%</p>
           </Card>
           <Card className="bg-card border-border p-6">
-            <p className="text-xs text-muted-foreground uppercase tracking-wide mb-1">PRICE</p>
-            <p className="text-lg font-bold">1 yoUSD ⇄ 1.0400 USD</p>
-          </Card>
-          <Card className="bg-card border-border p-6">
-            <p className="text-xs text-muted-foreground uppercase tracking-wide mb-1">VAULT ADDRESS</p>
+            <p className="text-xs text-chart-green uppercase tracking-wide mb-2">VAULT ADDRESS</p>
             <div className="flex items-center gap-2">
-              <p className="text-sm font-mono">0x0000...8a65</p>
-              <ExternalLink className="w-4 h-4 text-muted-foreground" />
+              <p className="text-lg font-mono">0x3A43...9De7</p>
+              <ExternalLink className="w-4 h-4 text-muted-foreground hover:text-foreground cursor-pointer" />
             </div>
           </Card>
           <Card className="bg-card border-border p-6">
-            <p className="text-xs text-muted-foreground uppercase tracking-wide mb-1">DEPOSIT CAP</p>
-            <p className="text-lg font-bold">{agent.tvl} / $50.00m</p>
-            <div className="mt-2 h-2 bg-secondary rounded-full overflow-hidden">
-              <div className="h-full bg-chart-green" style={{ width: "52%" }} />
+            <p className="text-xs text-chart-green uppercase tracking-wide mb-2">DEPOSIT CAP</p>
+            <p className="text-xl font-bold">$43.71m / $100.00m</p>
+            <div className="mt-3 h-2 bg-secondary/30 rounded-full overflow-hidden">
+              <div className="h-full bg-chart-green" style={{ width: "43.71%" }} />
             </div>
           </Card>
         </div>
