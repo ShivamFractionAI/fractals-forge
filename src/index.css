@@ -8,46 +8,58 @@ All colors MUST be HSL.
 
 @layer base {
   :root {
-    /* Crypto Vault Dark Theme */
-    --background: 0 0% 0%;
+    /* Fraction AI Dark Theme */
+    --background: 220 20% 8%;
     --foreground: 0 0% 100%;
 
-    --card: 0 0% 8%;
+    --card: 220 15% 12%;
     --card-foreground: 0 0% 100%;
 
-    --popover: 0 0% 8%;
+    --popover: 220 15% 12%;
     --popover-foreground: 0 0% 100%;
 
-    --primary: 75 100% 50%;
-    --primary-foreground: 0 0% 0%;
+    --primary: 180 100% 45%;
+    --primary-foreground: 0 0% 100%;
 
-    --secondary: 0 0% 15%;
+    --secondary: 220 15% 18%;
     --secondary-foreground: 0 0% 100%;
 
-    --muted: 0 0% 20%;
-    --muted-foreground: 0 0% 60%;
+    --muted: 220 10% 25%;
+    --muted-foreground: 0 0% 65%;
 
-    --accent: 75 100% 50%;
-    --accent-foreground: 0 0% 0%;
+    --accent: 280 70% 60%;
+    --accent-foreground: 0 0% 100%;
 
     --destructive: 0 84% 60%;
     --destructive-foreground: 0 0% 100%;
 
-    --border: 0 0% 15%;
-    --input: 0 0% 15%;
-    --ring: 75 100% 50%;
+    --border: 220 15% 20%;
+    --input: 220 15% 20%;
+    --ring: 180 100% 45%;
 
-    --radius: 1rem;
+    --radius: 0.75rem;
 
-    /* Agent Colors */
-    --agent-1: 190 100% 50%;
-    --agent-2: 35 100% 50%;
-    --agent-3: 155 100% 50%;
-    --agent-4: 235 100% 70%;
+    /* Agent Colors - Vibrant gradients */
+    --agent-1: 35 100% 55%; /* Orange/Bitcoin */
+    --agent-2: 200 100% 50%; /* Blue/USDC */
+    --agent-3: 240 60% 65%; /* Purple/Ethereum */
+    --agent-4: 200 100% 50%; /* Blue/USDC alt */
+    --agent-5: 340 85% 55%; /* Pink/Magenta */
+    --agent-6: 270 70% 60%; /* Purple */
+    --agent-7: 190 85% 50%; /* Cyan */
+    --agent-8: 155 75% 50%; /* Teal */
+    --agent-9: 280 70% 55%; /* Purple-pink */
+    --agent-10: 210 80% 55%; /* Blue */
+
+    /* Gradient Colors */
+    --gradient-pink: 340 85% 55%;
+    --gradient-purple: 270 70% 60%;
+    --gradient-blue: 240 80% 65%;
 
     /* Chart Colors */
-    --chart-green: 75 100% 50%;
+    --chart-green: 155 75% 50%;
     --chart-cyan: 190 100% 50%;
+    --network-avax: 0 85% 60%;
   }
 }
 

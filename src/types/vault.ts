@@ -6,6 +6,8 @@ export interface Agent {
   rewardApy?: number;
   tvl: string;
   color: string;
+  description: string;
+  chain: string;
 }
 
 export interface Protocol {

@@ -12,10 +12,16 @@ import { DepositDialog } from "@/components/DepositDialog";
 import { WithdrawDialog } from "@/components/WithdrawDialog";
 
 const agentIcons: Record<string, string> = {
-  "agent-1": "💎",
-  "agent-2": "₿",
-  "agent-3": "$",
-  "agent-4": "€",
+  "agent-1": "₿",
+  "agent-2": "$",
+  "agent-3": "⟠",
+  "agent-4": "$",
+  "agent-5": "◈",
+  "agent-6": "◎",
+  "agent-7": "◆",
+  "agent-8": "⬡",
+  "agent-9": "◉",
+  "agent-10": "◐",
 };
 
 const AgentDetail = () => {
@@ -48,33 +54,88 @@ const AgentDetail = () => {
 
   return (
     <div className="min-h-screen bg-background text-foreground">
-      <div className="container mx-auto px-4 py-8 max-w-7xl">
-        {/* Header */}
-        <div className="flex items-center justify-between mb-8">
-          <button
-            onClick={() => navigate("/")}
-            className="flex items-center gap-2 text-muted-foreground hover:text-foreground"
-          >
-            <ChevronLeft className="w-5 h-5" />
-            <span>Back to Vaults</span>
-          </button>
-          <div className="flex gap-3">
-            <Button variant="secondary" onClick={() => setWithdrawOpen(true)}>
-              WITHDRAW
-            </Button>
-            <Button className="bg-primary hover:bg-primary/90" onClick={() => setDepositOpen(true)}>
-              DEPOSIT
-            </Button>
-          </div>
-        </div>
+      <div className="container mx-auto px-4 py-6 max-w-7xl">
+        {/* Gradient Header Card */}
+        <Card className="relative overflow-hidden border-border mb-8">
+          {/* Gradient Background */}
+          <div className="absolute inset-0 bg-gradient-to-r from-gradient-pink via-gradient-purple to-gradient-blue opacity-90" />
+          
+          {/* Content */}
+          <div className="relative z-10 p-6 md:p-8">
+            {/* Back Button */}
+            <button
+              onClick={() => navigate("/")}
+              className="flex items-center gap-2 text-white/90 hover:text-white mb-6"
+            >
+              <ChevronLeft className="w-5 h-5" />
+              <span className="font-medium">Back</span>
+            </button>
 
-        {/* Agent Info */}
-        <div className="flex items-center gap-3 mb-8">
-          <div className={`${getColorClass(agent.id)} w-16 h-16 rounded-full flex items-center justify-center text-3xl`}>
-            {agentIcons[agent.icon]}
+            {/* Agent Icon */}
+            <div className="flex justify-center mb-6">
+              <div className="w-20 h-20 md:w-24 md:h-24 rounded-2xl bg-white/20 backdrop-blur-sm flex items-center justify-center text-4xl md:text-5xl border-2 border-white/30">
+                {agentIcons[agent.icon]}
+              </div>
+            </div>
+
+            {/* Agent Name */}
+            <h1 className="text-4xl md:text-5xl font-black text-white text-center mb-4">{agent.name}</h1>
+
+            {/* Address */}
+            <p className="text-white/80 text-center text-sm mb-6 font-mono">
+              0xBe53A109B494E5c9f97b90Cd39Fe969BBE68BF6204
+            </p>
+
+            {/* Badges */}
+            <div className="flex justify-center gap-3 mb-8">
+              <div className="px-6 py-2.5 bg-white/20 backdrop-blur-sm rounded-xl border border-white/30">
+                <span className="text-white font-bold">USD Coin</span>
+              </div>
+              <div className="px-6 py-2.5 bg-white/20 backdrop-blur-sm rounded-xl border border-white/30">
+                <span className="text-white font-bold">Base</span>
+              </div>
+            </div>
+
+            {/* Stats Grid */}
+            <div className="grid grid-cols-2 md:grid-cols-4 gap-4 md:gap-6">
+              <div className="text-center">
+                <p className="text-white/70 text-xs md:text-sm mb-1">Total deposited, USDC</p>
+                <p className="text-2xl md:text-3xl font-bold text-white">22,184,405.92</p>
+              </div>
+              <div className="text-center">
+                <p className="text-white/70 text-xs md:text-sm mb-1">Historical APY</p>
+                <p className="text-2xl md:text-3xl font-bold text-white">{agent.apy}%</p>
+              </div>
+              <div className="text-center">
+                <p className="text-white/70 text-xs md:text-sm mb-1">Value in USDC</p>
+                <p className="text-2xl md:text-3xl font-bold text-white">0.00</p>
+              </div>
+              <div className="text-center">
+                <p className="text-white/70 text-xs md:text-sm mb-1">Est. APY</p>
+                <p className="text-2xl md:text-3xl font-bold text-white">{(agent.apy * 1.7).toFixed(2)}%</p>
+              </div>
+            </div>
+
+            {/* Action Buttons */}
+            <div className="flex gap-3 justify-center mt-8">
+              <Button 
+                variant="secondary" 
+                size="lg"
+                onClick={() => setWithdrawOpen(true)}
+                className="bg-white/20 hover:bg-white/30 backdrop-blur-sm border-white/30 text-white font-bold px-8"
+              >
+                WITHDRAW
+              </Button>
+              <Button 
+                size="lg"
+                onClick={() => setDepositOpen(true)}
+                className="bg-white hover:bg-white/90 text-gradient-purple font-bold px-8"
+              >
+                DEPOSIT
+              </Button>
+            </div>
           </div>
-          <h1 className="text-3xl font-bold">{agent.name}</h1>
-        </div>
+        </Card>
 
         {/* Position Summary */}
         <Card className="bg-card border-border p-6 mb-8">

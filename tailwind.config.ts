@@ -52,6 +52,20 @@ export default {
           2: "hsl(var(--agent-2))",
           3: "hsl(var(--agent-3))",
           4: "hsl(var(--agent-4))",
+          5: "hsl(var(--agent-5))",
+          6: "hsl(var(--agent-6))",
+          7: "hsl(var(--agent-7))",
+          8: "hsl(var(--agent-8))",
+          9: "hsl(var(--agent-9))",
+          10: "hsl(var(--agent-10))",
+        },
+        gradient: {
+          pink: "hsl(var(--gradient-pink))",
+          purple: "hsl(var(--gradient-purple))",
+          blue: "hsl(var(--gradient-blue))",
+        },
+        network: {
+          avax: "hsl(var(--network-avax))",
         },
         chart: {
           green: "hsl(var(--chart-green))",
