@@ -6,6 +6,7 @@ import { BrowserRouter, Routes, Route } from "react-router-dom";
 import Index from "./pages/Index";
 import AgentDetail from "./pages/AgentDetail";
 import Leaderboard from "./pages/Leaderboard";
+import YourPositions from "./pages/YourPositions";
 import NotFound from "./pages/NotFound";
 
 const queryClient = new QueryClient();
@@ -20,6 +21,7 @@ const App = () => (
           <Route path="/" element={<Index />} />
           <Route path="/agent/:id" element={<AgentDetail />} />
           <Route path="/leaderboard" element={<Leaderboard />} />
+          <Route path="/positions" element={<YourPositions />} />
           {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
           <Route path="*" element={<NotFound />} />
         </Routes>

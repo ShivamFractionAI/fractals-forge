@@ -10,6 +10,7 @@ export const agents: Agent[] = [
     color: "agent-1",
     description: "High APY Hunter",
     chain: "Base USDC",
+    risk: "Low",
   },
   {
     id: 2,
@@ -20,6 +21,7 @@ export const agents: Agent[] = [
     color: "agent-2",
     description: "LP provider",
     chain: "Base USDC",
+    risk: "Moderate",
   },
   {
     id: 3,
@@ -30,6 +32,7 @@ export const agents: Agent[] = [
     color: "agent-3",
     description: "Plays it safe with high liquidity",
     chain: "Base USDC",
+    risk: "Low",
   },
   {
     id: 4,
@@ -40,6 +43,7 @@ export const agents: Agent[] = [
     color: "agent-4",
     description: "DeFi Token Believer",
     chain: "Base USDC",
+    risk: "Moderate",
   },
   {
     id: 5,
@@ -50,6 +54,7 @@ export const agents: Agent[] = [
     color: "agent-5",
     description: "Risk-balanced strategist",
     chain: "Base USDC",
+    risk: "Moderate",
   },
   {
     id: 6,
@@ -60,6 +65,7 @@ export const agents: Agent[] = [
     color: "agent-6",
     description: "Smart yield optimizer",
     chain: "Base USDC",
+    risk: "Low",
   },
   {
     id: 7,
@@ -70,6 +76,7 @@ export const agents: Agent[] = [
     color: "agent-7",
     description: "Conservative growth",
     chain: "Base USDC",
+    risk: "Low",
   },
   {
     id: 8,
@@ -80,6 +87,7 @@ export const agents: Agent[] = [
     color: "agent-8",
     description: "Aggressive yield seeker",
     chain: "Base USDC",
+    risk: "High",
   },
   {
     id: 9,
@@ -90,6 +98,7 @@ export const agents: Agent[] = [
     color: "agent-9",
     description: "Balanced portfolio manager",
     chain: "Base USDC",
+    risk: "Moderate",
   },
   {
     id: 10,
@@ -100,6 +109,7 @@ export const agents: Agent[] = [
     color: "agent-10",
     description: "High-risk high-reward",
     chain: "Base USDC",
+    risk: "High",
   },
 ];
 

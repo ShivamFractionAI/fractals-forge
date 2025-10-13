@@ -1,8 +1,9 @@
 import { useState } from "react";
 import { Dialog, DialogContent, DialogHeader, DialogTitle } from "@/components/ui/dialog";
 import { Button } from "@/components/ui/button";
-import { ArrowDown } from "lucide-react";
+import { ArrowDown, ChevronDown } from "lucide-react";
 import { agents } from "@/data/agentsData";
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 
 interface DepositDialogProps {
   open: boolean;
@@ -14,9 +15,9 @@ export const DepositDialog = ({ open, onOpenChange, selectedAgentId }: DepositDi
   const [amount, setAmount] = useState("");
   const [agentId, setAgentId] = useState(selectedAgentId || 1);
   const balance = 1000.0;
-  const maxBalance = 100000.0;
 
   const selectedAgent = agents.find((a) => a.id === agentId);
+  const conversionRate = 0.960746; // Mock conversion rate
 
   const handlePercentage = (percentage: number) => {
     const value = (balance * percentage) / 100;
@@ -31,21 +32,28 @@ export const DepositDialog = ({ open, onOpenChange, selectedAgentId }: DepositDi
         </DialogHeader>
 
         <div className="space-y-6">
-          {/* USDC Balance */}
+          {/* USDC Input */}
           <div className="bg-secondary rounded-lg p-4 space-y-3">
             <div className="flex items-center justify-between">
               <div className="flex items-center gap-3">
-                <div className="w-12 h-12 bg-white rounded-full flex items-center justify-center">
-                  <span className="text-black font-bold">W</span>
+                <div className="w-12 h-12 bg-gradient-to-br from-blue-400 to-blue-600 rounded-full flex items-center justify-center">
+                  <span className="text-white font-bold text-lg">$</span>
                 </div>
                 <div>
-                  <p className="font-semibold">USDC</p>
-                  <p className="text-sm text-muted-foreground">Base</p>
+                  <p className="text-xs text-muted-foreground">USDC</p>
+                  <p className="font-semibold">USD Coin</p>
+                  <p className="text-xs text-muted-foreground">Base</p>
                 </div>
               </div>
               <div className="text-right">
-                <p className="text-2xl font-bold">{amount || "0.00"} USDC</p>
-                <p className="text-sm text-muted-foreground">${maxBalance.toLocaleString()}</p>
+                <input
+                  type="number"
+                  value={amount}
+                  onChange={(e) => setAmount(e.target.value)}
+                  placeholder="0"
+                  className="text-2xl font-bold bg-transparent text-right outline-none w-32"
+                />
+                <p className="text-sm text-muted-foreground">${balance.toLocaleString()}</p>
               </div>
             </div>
 
@@ -68,7 +76,7 @@ export const DepositDialog = ({ open, onOpenChange, selectedAgentId }: DepositDi
                 MAX
               </Button>
             </div>
-            <p className="text-right text-sm text-muted-foreground">Max: {amount ? "0" : "0"}</p>
+            <p className="text-right text-sm text-muted-foreground">Max: {amount || "0"}</p>
           </div>
 
           <div className="flex justify-center">
@@ -76,31 +84,51 @@ export const DepositDialog = ({ open, onOpenChange, selectedAgentId }: DepositDi
           </div>
 
           {/* Agent Selection */}
-          <div className="bg-secondary rounded-lg p-4">
-            <div className="flex items-center justify-between mb-4">
-              <div className="flex items-center gap-3">
-                <div className="w-12 h-12 bg-agent-1 rounded-full flex items-center justify-center text-2xl">
-                  💎
+          <div className="bg-secondary rounded-lg p-4 space-y-4">
+            <div className="flex items-center justify-between">
+              <div className="flex items-center gap-3 flex-1">
+                <div className={`w-12 h-12 bg-${selectedAgent?.color} rounded-full flex items-center justify-center`}>
+                  <span className="text-lg font-bold">$</span>
                 </div>
-                <div>
-                  <p className="font-semibold">{selectedAgent?.name}</p>
-                  <p className="text-sm text-muted-foreground">Base</p>
+                <div className="flex-1">
+                  <Select value={agentId.toString()} onValueChange={(val) => setAgentId(Number(val))}>
+                    <SelectTrigger className="border-0 bg-transparent p-0 h-auto">
+                      <div className="text-left">
+                        <p className="font-semibold">{selectedAgent?.name}USDC</p>
+                        <p className="text-xs text-muted-foreground">Base</p>
+                      </div>
+                    </SelectTrigger>
+                    <SelectContent>
+                      {agents.map((agent) => (
+                        <SelectItem key={agent.id} value={agent.id.toString()}>
+                          {agent.name}USDC
+                        </SelectItem>
+                      ))}
+                    </SelectContent>
+                  </Select>
                 </div>
               </div>
               <div className="text-right">
-                <p className="text-2xl font-bold">0.00</p>
-                <p className="text-sm text-muted-foreground">$0.00</p>
+                <p className="text-2xl font-bold">{amount ? (Number(amount) * conversionRate).toFixed(6) : "0.00"}</p>
+                <p className="text-sm text-muted-foreground">${amount || "0.00"}</p>
               </div>
-            </div>
-
-            <div className="flex items-center justify-between pt-3 border-t border-border">
-              <p className="text-sm text-muted-foreground">APY</p>
-              <p className="text-lg font-bold">{selectedAgent?.apy}%</p>
             </div>
           </div>
 
-          <Button className="w-full bg-primary hover:bg-primary/90 text-primary-foreground font-bold text-lg py-6">
-            DEPOSIT
+          {/* APY and Price */}
+          <div className="space-y-2">
+            <div className="flex items-center justify-between">
+              <p className="text-sm text-muted-foreground">APY</p>
+              <p className="text-lg font-bold">{selectedAgent?.apy}%</p>
+            </div>
+            <div className="flex items-center justify-between">
+              <p className="text-sm text-muted-foreground">Price</p>
+              <p className="text-sm font-medium">1 {selectedAgent?.name}USD = {(1 / conversionRate).toFixed(4)} USD</p>
+            </div>
+          </div>
+
+          <Button className="w-full bg-chart-green hover:bg-chart-green/90 text-black font-bold text-lg py-6">
+            APPROVE
           </Button>
         </div>
       </DialogContent>

@@ -8,6 +8,7 @@ export interface Agent {
   color: string;
   description: string;
   chain: string;
+  risk: "Low" | "Moderate" | "High";
 }
 
 export interface Protocol {

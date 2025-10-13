@@ -2,6 +2,7 @@ import { useState } from "react";
 import { Dialog, DialogContent, DialogHeader, DialogTitle } from "@/components/ui/dialog";
 import { Button } from "@/components/ui/button";
 import { agents } from "@/data/agentsData";
+import { ArrowDown } from "lucide-react";
 
 interface WithdrawDialogProps {
   open: boolean;
@@ -11,7 +12,8 @@ interface WithdrawDialogProps {
 
 export const WithdrawDialog = ({ open, onOpenChange, selectedAgentId }: WithdrawDialogProps) => {
   const [amount, setAmount] = useState("");
-  const maxBalance = 200000.0;
+  const maxBalance = 22.0;
+  const conversionRate = 1.0409; // Mock conversion rate - AgentUSD to USDC
 
   const selectedAgent = agents.find((a) => a.id === selectedAgentId || 1);
 
@@ -19,6 +21,8 @@ export const WithdrawDialog = ({ open, onOpenChange, selectedAgentId }: Withdraw
     const value = (maxBalance * percentage) / 100;
     setAmount(value.toFixed(2));
   };
+
+  const usdcAmount = amount ? (Number(amount) * conversionRate).toFixed(6) : "0.00";
 
   return (
     <Dialog open={open} onOpenChange={onOpenChange}>
@@ -28,20 +32,27 @@ export const WithdrawDialog = ({ open, onOpenChange, selectedAgentId }: Withdraw
         </DialogHeader>
 
         <div className="space-y-6">
+          {/* Agent Token Input */}
           <div className="bg-secondary rounded-lg p-4 space-y-3">
             <div className="flex items-center justify-between">
               <div className="flex items-center gap-3">
-                <div className="w-12 h-12 bg-agent-1 rounded-full flex items-center justify-center text-2xl">
-                  💎
+                <div className={`w-12 h-12 bg-${selectedAgent?.color} rounded-full flex items-center justify-center`}>
+                  <span className="text-lg font-bold">$</span>
                 </div>
                 <div>
-                  <p className="font-semibold">{selectedAgent?.name}</p>
-                  <p className="text-sm text-muted-foreground">Base</p>
+                  <p className="font-semibold">{selectedAgent?.name}USD</p>
+                  <p className="text-xs text-muted-foreground">Base</p>
                 </div>
               </div>
               <div className="text-right">
-                <p className="text-2xl font-bold">{amount || "0.00"}</p>
-                <p className="text-sm text-muted-foreground">Max: {maxBalance.toLocaleString()} USDC</p>
+                <input
+                  type="number"
+                  value={amount}
+                  onChange={(e) => setAmount(e.target.value)}
+                  placeholder="0"
+                  className="text-2xl font-bold bg-transparent text-right outline-none w-32"
+                />
+                <p className="text-sm text-muted-foreground">Max: {maxBalance}</p>
               </div>
             </div>
 
@@ -66,6 +77,28 @@ export const WithdrawDialog = ({ open, onOpenChange, selectedAgentId }: Withdraw
             </div>
           </div>
 
+          <div className="flex justify-center">
+            <ArrowDown className="w-6 h-6 text-muted-foreground" />
+          </div>
+
+          {/* USDC Output */}
+          <div className="bg-secondary rounded-lg p-4">
+            <div className="flex items-center justify-between">
+              <div className="flex items-center gap-3">
+                <div className="w-12 h-12 bg-gradient-to-br from-blue-400 to-blue-600 rounded-full flex items-center justify-center">
+                  <span className="text-white font-bold text-lg">$</span>
+                </div>
+                <div>
+                  <p className="font-semibold">USDC</p>
+                  <p className="text-xs text-muted-foreground">Base</p>
+                </div>
+              </div>
+              <div className="text-right">
+                <p className="text-2xl font-bold">{usdcAmount}</p>
+              </div>
+            </div>
+          </div>
+
           <p className="text-sm text-muted-foreground text-center">
             Withdrawals may be instant or take up to 24 hours.
           </p>
@@ -73,12 +106,12 @@ export const WithdrawDialog = ({ open, onOpenChange, selectedAgentId }: Withdraw
           <div className="flex gap-3">
             <Button
               variant="secondary"
-              className="flex-1 bg-secondary hover:bg-secondary/80"
+              className="flex-1 bg-secondary hover:bg-secondary/80 font-bold"
               onClick={() => onOpenChange(false)}
             >
               CANCEL
             </Button>
-            <Button className="flex-1 bg-primary hover:bg-primary/90 text-primary-foreground font-bold">
+            <Button className="flex-1 bg-chart-green hover:bg-chart-green/90 text-black font-bold">
               WITHDRAW
             </Button>
           </div>

@@ -27,11 +27,28 @@ export const VaultCard = ({ agent }: VaultCardProps) => {
     return `bg-agent-${agentId}`;
   };
 
+  const getRiskColor = (risk: string) => {
+    switch (risk) {
+      case "Low":
+        return "bg-chart-green text-black";
+      case "Moderate":
+        return "bg-yellow-500 text-black";
+      case "High":
+        return "bg-red-500 text-white";
+      default:
+        return "bg-muted text-foreground";
+    }
+  };
+
   return (
     <Card 
-      className="bg-card border-border p-6 space-y-4 hover:border-primary/30 transition-all cursor-pointer group"
+      className="bg-card border-border p-6 space-y-4 hover:border-primary/30 transition-all cursor-pointer group relative"
       onClick={() => navigate(`/agent/${agent.id}`)}
     >
+      {/* Risk Badge */}
+      <div className={`absolute top-3 right-3 px-2 py-1 rounded text-xs font-bold ${getRiskColor(agent.risk)}`}>
+        {agent.risk}
+      </div>
       {/* Header with Icon and Name */}
       <div className="flex items-start gap-3">
         <div className={`${getColorClass(agent.id)} w-12 h-12 rounded-xl flex items-center justify-center text-2xl flex-shrink-0`}>
