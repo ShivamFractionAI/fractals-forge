@@ -5,6 +5,7 @@ import { Card } from "@/components/ui/card";
 import { VaultCard } from "@/components/VaultCard";
 import { DepositDialog } from "@/components/DepositDialog";
 import { WithdrawDialog } from "@/components/WithdrawDialog";
+import { ActivityMarquee } from "@/components/ActivityMarquee";
 import { agents } from "@/data/agentsData";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 
@@ -78,6 +79,9 @@ const Index = () => {
             </div>
           </div>
         </Card>
+
+        {/* Activity Marquee */}
+        <ActivityMarquee />
 
         {/* Available Vaults */}
         <div className="mb-12">

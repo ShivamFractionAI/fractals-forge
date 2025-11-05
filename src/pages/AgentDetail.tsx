@@ -8,6 +8,7 @@ import { APYChart } from "@/components/APYChart";
 import { TVLChart } from "@/components/TVLChart";
 import { HowItWorks } from "@/components/HowItWorks";
 import { VaultBreakdown } from "@/components/VaultBreakdown";
+import { AgentActivities } from "@/components/AgentActivities";
 import { DepositDialog } from "@/components/DepositDialog";
 import { WithdrawDialog } from "@/components/WithdrawDialog";
 
@@ -205,6 +206,9 @@ const AgentDetail = () => {
 
         {/* Vault Breakdown */}
         <VaultBreakdown protocols={protocols} totalApy={agent.apy} />
+
+        {/* Agent Activities */}
+        <AgentActivities agentName={agent.name} agentColor={agent.color} />
       </div>
 
       <DepositDialog open={depositOpen} onOpenChange={setDepositOpen} selectedAgentId={agent.id} />
