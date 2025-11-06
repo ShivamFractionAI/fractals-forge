@@ -47,9 +47,9 @@ const getActionDescription = (activity: Activity, agentName: string) => {
     case "withdrew":
       return `${agentName} withdrew ${activity.amount} from ${activity.protocol}`;
     case "rebalanced":
-      return `${agentName} rebalanced ${activity.amount} to ${activity.protocol}`;
+      return `${agentName} rebalanced ${activity.amount} from ${activity.protocol}`;
     case "looped":
-      return `${agentName} performed a loop strategy with ${activity.amount} on ${activity.protocol}`;
+      return `${agentName} executed a loop strategy worth ${activity.amount} on ${activity.protocol}`;
   }
 };
 
@@ -115,16 +115,12 @@ export const AgentActivities = ({ agentName, agentColor }: AgentActivitiesProps)
                 {getActionIcon(activity.action)}
               </div>
               <div className="flex-1">
-                <div className="flex items-start justify-between mb-1">
-                  <p className="text-foreground font-medium">
-                    {getActionDescription(activity, agentName)}
-                  </p>
-                  <span className="text-xs text-muted-foreground whitespace-nowrap ml-4">
-                    {activity.timestamp}
-                  </span>
-                </div>
-                <div className="flex items-center gap-3 text-sm text-muted-foreground">
-                  <span className="font-mono text-xs">{activity.txHash}</span>
+                <p className="text-foreground font-medium mb-1">
+                  {getActionDescription(activity, agentName)}
+                </p>
+                <div className="flex items-center gap-2 text-sm text-muted-foreground">
+                  <span className="text-xs">{activity.timestamp}</span>
+                  <span>·</span>
                   <a
                     href="#"
                     className="text-chart-green hover:underline text-xs"
